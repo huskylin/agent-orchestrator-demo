@@ -5,55 +5,40 @@ interface GameCardProps {
   title: string
   coverUrl: string
   category: string
-  rating: number // 1–5
+  rating: number
   isFree: boolean
 }
 
-const GameCard: React.FC<GameCardProps> = ({
-  id: _id,
-  title,
-  coverUrl,
-  category,
-  rating,
-  isFree,
-}) => {
+const GameCard: React.FC<GameCardProps> = ({ title, coverUrl, category, rating, isFree }) => {
   return (
-    <div className="group relative w-full overflow-hidden rounded-lg bg-white shadow-md transition-transform duration-150 ease-out hover:scale-[1.03]">
-      {/* Cover image — 16:9 aspect ratio */}
-      <div className="relative aspect-video w-full overflow-hidden">
+    <div className="group relative rounded-lg overflow-hidden shadow-md bg-white transition-transform duration-150 hover:scale-[1.03]">
+      {/* 16:9 cover image */}
+      <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
         <img
           src={coverUrl}
           alt={title}
-          className="h-full w-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
         />
-
-        {/* Free badge — top-right */}
         {isFree && (
-          <span className="absolute right-2 top-2 rounded bg-green-500 px-2 py-0.5 text-xs font-semibold text-white">
+          <span className="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-0.5 rounded">
             FREE
           </span>
         )}
-
-        {/* Bottom overlay for badges */}
-        <div className="absolute bottom-0 left-0 right-0 flex items-end justify-between p-2">
-          {/* Category badge — bottom-left */}
-          <span className="rounded bg-black/60 px-2 py-0.5 text-xs font-medium text-white">
-            {category}
-          </span>
-
-          {/* Rating — bottom-right */}
-          <span className="text-sm font-semibold text-yellow-400 drop-shadow">
-            {'★'.repeat(Math.round(rating))}
-            {'☆'.repeat(5 - Math.round(rating))}
-          </span>
-        </div>
       </div>
 
-      {/* Title */}
+      {/* Card body */}
       <div className="p-3">
-        <p className="line-clamp-2 text-sm font-medium leading-snug text-gray-900">
+        <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-gray-900">
           {title}
-        </p>
+        </h3>
+        <div className="flex items-center justify-between mt-2">
+          <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded capitalize">
+            {category}
+          </span>
+          <span className="text-xs text-yellow-500 font-medium">
+            ★ {rating.toFixed(1)}
+          </span>
+        </div>
       </div>
     </div>
   )
