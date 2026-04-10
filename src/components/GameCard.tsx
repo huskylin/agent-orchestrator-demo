@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface GameCardProps {
   id: string
@@ -10,15 +11,20 @@ interface GameCardProps {
 }
 
 const GameCard: React.FC<GameCardProps> = ({
-  id: _id,
+  id,
   title,
   coverUrl,
   category,
   rating,
   isFree,
 }) => {
+  const navigate = useNavigate()
+
   return (
-    <div className="group relative w-full overflow-hidden rounded-lg bg-white shadow-md transition-transform duration-150 ease-out hover:scale-[1.03]">
+    <div
+      className="group relative w-full overflow-hidden rounded-lg bg-white shadow-md transition-transform duration-150 ease-out hover:scale-[1.03] cursor-pointer"
+      onClick={() => navigate(`/game/${id}`)}
+    >
       {/* Cover image — 16:9 aspect ratio */}
       <div className="relative aspect-video w-full overflow-hidden">
         <img
