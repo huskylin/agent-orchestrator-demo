@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
-      {heroGame && (
+      {selectedCategory === 'all' && heroGame && (
         <HeroBanner
           title={heroGame.title}
           subtitle={heroGame.description}
