@@ -19,10 +19,16 @@ const categories: { value: Category; label: string }[] = [
 const CategoryFilter: React.FC<CategoryFilterProps> = ({ selected, onChange }) => {
   return (
     <div className="overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-      <div className="flex min-w-max border-b border-gray-200">
+      <div
+        className="flex min-w-max border-b border-gray-200"
+        role="tablist"
+        aria-label="Game categories"
+      >
         {categories.map((cat) => (
           <button
             key={cat.value}
+            role="tab"
+            aria-selected={selected === cat.value}
             onClick={() => onChange(cat.value)}
             className={`px-5 py-3 text-sm font-medium border-b-2 -mb-px transition-colors whitespace-nowrap ${
               selected === cat.value

@@ -24,7 +24,7 @@ describe('HomePage', () => {
     renderHomePage()
 
     // Click "Action" tab
-    await user.click(screen.getByRole('button', { name: 'Action' }))
+    await user.click(screen.getByRole('tab', { name: 'Action' }))
 
     const actionGames = games.filter((g) => g.category === 'action')
     // Each action game title should be present
@@ -44,8 +44,8 @@ describe('HomePage', () => {
     renderHomePage()
 
     // Switch to RPG then back to All
-    await user.click(screen.getByRole('button', { name: 'RPG' }))
-    await user.click(screen.getByRole('button', { name: 'All' }))
+    await user.click(screen.getByRole('tab', { name: 'RPG' }))
+    await user.click(screen.getByRole('tab', { name: 'All' }))
 
     // All game titles should be present (some may appear in both hero banner and grid)
     for (const game of games) {
