@@ -78,23 +78,18 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ filters, onFilterChange }) =>
         </div>
       </div>
 
-      {/* Is free toggle */}
-      <div className="flex items-center justify-between">
-        <span className="font-semibold text-gray-700">僅顯示免費</span>
-        <button
-          role="switch"
-          aria-checked={filters.isFree}
-          onClick={() => onFilterChange({ ...filters, isFree: !filters.isFree })}
-          className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-            filters.isFree ? 'bg-blue-600' : 'bg-gray-300'
-          }`}
-        >
-          <span
-            className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-              filters.isFree ? 'translate-x-6' : 'translate-x-1'
-            }`}
+      {/* Is free checkbox */}
+      <div>
+        <p className="font-semibold text-gray-700 mb-2">免費</p>
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={filters.isFree}
+            onChange={(e) => onFilterChange({ ...filters, isFree: e.target.checked })}
+            className="accent-blue-600"
           />
-        </button>
+          <span className="text-gray-600">僅顯示免費遊戲</span>
+        </label>
       </div>
 
       {/* Sort dropdown */}
