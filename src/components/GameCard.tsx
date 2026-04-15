@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 interface GameCardProps {
   id: string
@@ -9,9 +10,9 @@ interface GameCardProps {
   isFree: boolean
 }
 
-const GameCard: React.FC<GameCardProps> = ({ title, coverUrl, category, rating, isFree }) => {
+const GameCard: React.FC<GameCardProps> = ({ id, title, coverUrl, category, rating, isFree }) => {
   return (
-    <div className="group relative rounded-lg overflow-hidden shadow-md bg-white transition-transform duration-150 hover:scale-[1.03]">
+    <Link to={`/game/${id}`} className="group relative rounded-lg overflow-hidden shadow-md bg-white transition-transform duration-150 hover:scale-[1.03] block">
       {/* 16:9 cover image */}
       <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
         <img
@@ -40,7 +41,7 @@ const GameCard: React.FC<GameCardProps> = ({ title, coverUrl, category, rating, 
           </span>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
