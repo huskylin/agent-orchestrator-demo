@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 
 interface SearchBarProps {
   value: string
@@ -14,16 +14,21 @@ function debounce<T extends (...args: Parameters<T>) => void>(fn: T, delay: numb
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
+  // Local state for immediate input display; debounced value is reported to parent
+  const [inputValue, setInputValue] = useState(value)
   const debouncedOnChange = useRef(debounce(onChange, 300)).current
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      debouncedOnChange(e.target.value)
+      const newValue = e.target.value
+      setInputValue(newValue)
+      debouncedOnChange(newValue)
     },
-    [debouncedOnChange]
+    [debouncedOnChange],
   )
 
   const handleClear = useCallback(() => {
+    setInputValue('')
     onChange('')
   }, [onChange])
 
@@ -31,12 +36,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
     <div className="relative flex items-center">
       <input
         type="text"
-        defaultValue={value}
+        value={inputValue}
         onChange={handleChange}
         placeholder="搜尋遊戲…"
         className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
       />
-      {value && (
+      {inputValue && (
         <button
           onClick={handleClear}
           className="absolute right-3 text-gray-400 hover:text-gray-600 transition-colors"
