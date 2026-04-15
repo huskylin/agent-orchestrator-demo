@@ -13,12 +13,12 @@ interface GameCardProps {
 const GameCard: React.FC<GameCardProps> = ({ id, title, coverUrl, category, rating, isFree }) => {
   return (
     <Link to={`/game/${id}`} className="group relative rounded-lg overflow-hidden shadow-md bg-white transition-transform duration-150 hover:scale-[1.03] block">
-      {/* 16:9 cover image */}
-      <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
+      {/* Cover image — fixed height for consistent Safari/grid layout */}
+      <div className="relative w-full h-48 overflow-hidden">
         <img
           src={coverUrl}
           alt={title}
-          className="absolute inset-0 w-full h-full object-cover"
+          className="w-full h-full object-cover"
         />
         {isFree && (
           <span className="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-0.5 rounded">
