@@ -27,9 +27,9 @@ describe('HomePage', () => {
     await user.click(screen.getByRole('button', { name: 'Action' }))
 
     const actionGames = games.filter((g) => g.category === 'action')
-    // Each action game title should be present
+    // Each action game title should be present (may appear in both NewReleaseSection and the grid)
     for (const game of actionGames) {
-      expect(screen.getByText(game.title)).toBeInTheDocument()
+      expect(screen.getAllByText(game.title).length).toBeGreaterThan(0)
     }
 
     // A game from a different category should NOT be present

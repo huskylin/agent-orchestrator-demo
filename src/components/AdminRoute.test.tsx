@@ -5,7 +5,7 @@ import AdminRoute from './AdminRoute'
 import * as AuthContextModule from '../context/AuthContext'
 import type { User } from '../context/AuthContext'
 
-function makeUser(role: string): User {
+function makeUser(role: 'user' | 'admin'): User {
   return { id: '1', email: 'test@test.com', username: 'test', role, avatarUrl: '' }
 }
 

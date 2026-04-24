@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import HeroBanner from '../components/HeroBanner'
 import CategoryFilter, { Category } from '../components/CategoryFilter'
 import GameCard from '../components/GameCard'
+import NewReleaseSection from '../components/NewReleaseSection'
 import { games, getFeaturedGames } from '../data/games'
+
+const NEW_RELEASE_COUNT = 6
 
 const HomePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>('all')
@@ -10,6 +13,10 @@ const HomePage: React.FC = () => {
   // Use first featured game (highest rated) for the hero banner
   const featuredGames = getFeaturedGames()
   const heroGame = featuredGames[0] ?? games[0]
+
+  const newReleases = [...games]
+    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+    .slice(0, NEW_RELEASE_COUNT)
 
   const filteredGames =
     selectedCategory === 'all'
@@ -29,6 +36,10 @@ const HomePage: React.FC = () => {
       )}
 
       <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="mb-10">
+          <NewReleaseSection games={newReleases} />
+        </div>
+
         <CategoryFilter
           selected={selectedCategory}
           onChange={setSelectedCategory}
